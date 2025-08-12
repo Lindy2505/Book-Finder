@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BookFinder · Stories just waiting to be discovered</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{ --brand:#2563eb; --brand-2:#f59e0b; --brand-3:#10b981; }
+    html,body{height:100%}
+    body{font-family:'Quicksand',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue','Noto Sans',sans-serif}
+    .heading{font-family:'Merriweather',serif}
+    .card{transition:transform .2s ease, box-shadow .2s ease}
+    .card:hover{transform:translateY(-4px); box-shadow:0 10px 24px rgba(0,0,0,.08)}
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-sky-50 via-white to-amber-50">
+  <header class="bg-white border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/book.svg" alt="BookFinder logo" class="w-10 h-10 rounded-lg ring-1 ring-black/5">
+        <div>
+          <h1 class="heading text-2xl font-bold text-gray-900">BookFinder</h1>
+          <p class="text-sm text-gray-600">Stories just waiting to be discovered</p>
+        </div>
+      </div>
+      <a href="https://github.com/new" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-2 text-sm px-3 py-2 rounded-md border border-gray-200 hover:bg-gray-50">Create GitHub repo</a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Search panel -->
+    <section class="bg-white rounded-2xl shadow-sm ring-1 ring-black/5 p-6 mb-8">
+      <div class="text-center mb-6">
+        <h2 class="heading text-xl font-bold text-gray-900">Find an amazing story</h2>
+        <p class="text-gray-600">Search by title, author, subject, or age</p>
+      </div>
+      <div class="flex flex-col md:flex-row gap-3">
+        <input id="q" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-500" placeholder="Try ‘rhyme’, ‘family’, ‘animals’, ‘friendship’…"/>
+        <select id="age" class="md:w-48 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-500">
+          <option value="">All ages</option>
+          <option>5-6</option><option>5-7</option><option>6-8</option><option>7-8</option><option>7-9</option><option>8-9</option>
+        </select>
+        <div class="flex gap-2">
+          <button id="searchBtn" class="flex-1 md:flex-none bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold">Search</button>
+          <button id="clearBtn" class="flex-1 md:flex-none bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-3 rounded-lg font-semibold">Clear</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section id="resultsWrap" class="hidden">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="heading text-lg font-bold text-gray-900">Search results</h3>
+        <span id="count" class="text-sm text-gray-600"></span>
+      </div>
+      <div id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Featured -->
+    <section id="featuredWrap">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="heading text-lg font-bold text-gray-900">Featured books</h3>
+        <span class="text-sm text-gray-600">Curated for you</span>
+      </div>
+      <div id="featured" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+  </main>
+
+  <footer class="py-10 text-center text-xs text-gray-500">
+    <p>Drop in your <code>books.json</code> to replace the sample data. Served statically on GitHub Pages.</p>
+  </footer>
+
+  <!-- Inline fallback sample data (used only if books.json is missing) -->
+  <script id="books-data" type="application/json">[{"title": "The Day You Begin", "author": "Jacqueline Woodson", "age": "7-9", "keywords": ["belonging", "diversity", "first-day", "courage", "identity"], "summary": "A gentle story about finding your voice and sharing your story when you feel different from others.", "link": "https://www.google.com/search?tbm=bks&q=The+Day+You+Begin+Jacqueline+Woodson"}, {"title": "Sulwe", "author": "Lupita Nyong'o", "age": "6-8", "keywords": ["self-esteem", "skin-tone", "identity", "family", "feelings"], "summary": "Sulwe embarks on a journey to understand beauty, self-worth, and the light within.", "link": "https://www.google.com/search?tbm=bks&q=Sulwe+Lupita+Nyong%27o"}, {"title": "I Am Enough", "author": "Grace Byers", "age": "5-7", "keywords": ["affirmation", "confidence", "kindness", "friendship"], "summary": "A lyrical ode to loving who you are, respecting others, and being kind to one another.", "link": "https://www.google.com/search?tbm=bks&q=I+Am+Enough+Grace+Byers"}, {"title": "Superworm", "author": "Julia Donaldson", "age": "5-7", "keywords": ["minibeasts", "soil", "teamwork", "rhymes", "friendship"], "summary": "A heroic worm saves the day for garden friends with humour and rhyme; great for minibeasts/soil themes.", "link": "https://www.google.com/search?tbm=bks&q=Superworm+Julia+Donaldson"}, {"title": "Matilda", "author": "Roald Dahl", "age": "8-9", "keywords": ["resilience", "reading", "school", "family"], "summary": "Gifted Matilda navigates neglectful adults with wit and courage, celebrating reading and fairness.", "link": "https://www.google.com/search?tbm=bks&q=Matilda+Roald+Dahl"}, {"title": "Ada Twist, Scientist", "author": "Andrea Beaty", "age": "6-8", "keywords": ["curiosity", "science", "experimentation", "problem-solving", "STEM"], "summary": "Ada Twist's boundless curiosity leads her to investigate the world with experiments and creative thinking.", "link": "https://www.google.com/search?tbm=bks&q=Ada+Twist%2C+Scientist+Andrea+Beaty"}]</script>
+
+  <script>
+  let BOOKS = [];
+  const elQ = () => document.getElementById('q');
+  const elAge = () => document.getElementById('age');
+  const elFeatured = () => document.getElementById('featured');
+  const elFeaturedWrap = () => document.getElementById('featuredWrap');
+  const elResults = () => document.getElementById('results');
+  const elResultsWrap = () => document.getElementById('resultsWrap');
+  const elCount = () => document.getElementById('count');
+
+  function escapeHTML(s){ return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+  function tagPill(text, brand=false){
+    return '<span class="'+(brand?'bg-blue-50 text-blue-700 ':'bg-gray-100 text-gray-700 ')+'px-2 py-1 rounded-full text-xs font-semibold">'+escapeHTML(text)+'</span>';
+  }
+
+  function card(book){
+    const img = 'assets/book.svg';
+    const kws = (book.keywords||[]).slice(0,3).map(k=>tagPill(k,true)).join(' ');
+    const age = book.age ? '<span class="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs font-semibold">Ages '+escapeHTML(book.age)+'</span>' : '';
+    const linkBtn = book.link ? '<a class="inline-flex items-center gap-2 text-sm font-semibold text-blue-700 hover:underline" target="_blank" rel="noopener" href="'+escapeHTML(book.link)+'">View details</a>' : '';
+    return `
+      <article class="card bg-white rounded-2xl p-6 h-full flex flex-col ring-1 ring-black/5">
+        <div class="flex items-start gap-4 mb-4">
+          <img src="${img}" alt="Book cover" class="w-14 h-14 rounded-md ring-1 ring-black/5">
+          <div class="min-w-0">
+            <h4 class="font-semibold text-gray-900 text-lg leading-tight mb-0.5">${escapeHTML(book.title)}</h4>
+            <p class="text-emerald-700 font-medium mb-2">by ${escapeHTML(book.author)}</p>
+            <div class="flex items-center gap-2 mb-2">${age}</div>
+            <div class="flex flex-wrap gap-1 mb-1">${kws}</div>
+          </div>
+        </div>
+        <p class="text-gray-700 text-sm leading-relaxed flex-1 mb-3">${escapeHTML(book.summary||'')}</p>
+        <div class="flex items-center justify-between">
+          ${linkBtn}
+        </div>
+      </article>`;
+  }
+
+  function render(list, into){
+    if(!list.length){
+      into.innerHTML = \`
+        <div class="col-span-full text-center py-12">
+          <div class="text-6xl mb-4">📚</div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">No books found</h3>
+          <p class="text-gray-600">Try a different term or age filter.</p>
+        </div>\`;
+      return;
+    }
+    into.innerHTML = list.map(card).join('');
+  }
+
+  function doSearch(){
+    const q = elQ().value.trim().toLowerCase();
+    const age = elAge().value.trim();
+    const results = BOOKS.filter(b => {
+      const hay = [b.title,b.author,b.summary,(b.age||''),(b.keywords||[]).join(' ')].join(' ').toLowerCase();
+      const okQ = !q || hay.includes(q);
+      const okAge = !age || (b.age===age);
+      return okQ && okAge;
+    });
+    elFeaturedWrap().classList.add('hidden');
+    elResultsWrap().classList.remove('hidden');
+    elCount().textContent = results.length + (results.length===1?' book found':' books found');
+    render(results, elResults());
+  }
+
+  function clearSearch(){
+    elQ().value = '';
+    elAge().value = '';
+    elResultsWrap().classList.add('hidden');
+    elFeaturedWrap().classList.remove('hidden');
+  }
+
+  async function loadBooks(){
+    // Try external books.json first
+    try{
+      const res = await fetch('./books.json', {cache:'no-store'});
+      if(res.ok){
+        const data = await res.json();
+        if(Array.isArray(data) && data.length){ return data; }
+      }
+    }catch(e){ /* ignore, fallback below */ }
+    // Fallback to inline sample
+    try{
+      const inline = document.getElementById('books-data').textContent;
+      const data = JSON.parse(inline);
+      return data;
+    }catch(e){
+      console.error('Failed to load data', e);
+      return [];
+    }
+  }
+
+  (async function init(){
+    BOOKS = await loadBooks();
+    // Pick 6 featured (first 6 if <=6)
+    const list = BOOKS.slice(0,6);
+    render(list, elFeatured());
+    // Wire up events
+    document.getElementById('searchBtn').addEventListener('click', doSearch);
+    document.getElementById('clearBtn').addEventListener('click', clearSearch);
+    document.getElementById('q').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+    document.getElementById('q').addEventListener('input', e => { if(e.target.value.length>=3) doSearch(); });
+  })();
+  </script>
+</body>
+</html>

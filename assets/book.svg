@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320" height="200" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Book icon</title>
+  <desc id="desc">A simple, clean illustration of an open book</desc>
+  <rect width="320" height="200" rx="16" ry="16" fill="#ffffff"/>
+  <path d="M20,40 h120 a24,24 0 0 1 24,24 v92 a0,0 0 0 1 0,0 H20 z" fill="#e6f4ff" stroke="#2563eb" stroke-width="3"/>
+  <path d="M180,40 h120 v116 H176 a0,0 0 0 1 0,0 V64 a24,24 0 0 1 24,-24z" fill="#ecfdf5" stroke="#059669" stroke-width="3"/>
+  <path d="M160,48 v108" stroke="#111827" stroke-width="2"/>
+  <path d="M40,72 h80 M40,92 h80 M40,112 h80 M40,132 h70" stroke="#2563eb" stroke-width="4" stroke-linecap="round"/>
+  <path d="M200,72 h80 M200,92 h80 M200,112 h80 M200,132 h70" stroke="#059669" stroke-width="4" stroke-linecap="round"/>
+</svg>
