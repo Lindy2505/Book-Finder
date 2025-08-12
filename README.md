@@ -1,43 +1,44 @@
-# BookFinder (static site)
+# BookFinder (129 themed books)
 
-A no-code, single-page book search app you can deploy on **GitHub Pages**.
+Static site for GitHub Pages — search by title, author, age, or keyword.
 
-## What you get
-- `index.html` — the app (works out of the box with sample data)
-- `books.sample.json` — example data structure
-- `assets/book.svg` — clean book illustration used as a cover placeholder
+## What’s included
+- `index.html` — app UI (Tailwind, Merriweather + Quicksand)
+- `books.json` — **129 cleaned entries** (links point to Google Books search)
+- `assets/book.svg` — default cover illustration
 
-## Use your own data
-1. Create a file named **`books.json`** in the repo root.
-2. Paste your list of books as a JSON array, e.g.
+## Deploy on GitHub Pages
+1. Create a new repository on GitHub.
+2. Upload **all files at repo root** (keep `index.html` at the top level).
+3. Commit to the `main` branch.
+4. Repo → **Settings → Pages** → Build and deployment: **Deploy from a branch** → Branch: `main`, Folder: `/ (root)` → Save.
+5. Wait ~1 minute. Your site will be at `https://<your-username>.github.io/<repo-name>/`.
 
-```json
-[
-  {
-    "title": "The Day You Begin",
-    "author": "Jacqueline Woodson",
-    "age": "7-9",
-    "keywords": ["belonging","diversity"],
-    "summary": "…",
-    "link": "https://example.com"
-  }
-]
-```
-
-> If `books.json` is present, the app will load it. If not, it falls back to the inline sample.
-
-## Deploy to GitHub Pages
-1. Create a new repo on GitHub and upload these files (drag & drop in the web UI is fine).
-2. Commit to the **main** branch.
-3. Go to **Settings → Pages**.
-4. Under **Build and deployment**, set **Source** to “Deploy from a branch”; choose **Branch: main** and **/ (root)**. Save.
-5. Wait ~1–2 minutes. Your site will be available at `https://<your-username>.github.io/<repo-name>/`.
+## Verify it’s live
+- Visit `https://<your-username>.github.io/<repo-name>/books.json` → you should see 129 items.
+- If you get a 404, check that `index.html` and `books.json` are in the **repo root**, not in a subfolder.
 
 ## Customise
-- **Colours**: Tailwind utility classes in `index.html` control colours; search for `bg-`, `text-`, and `from-…/to-…` gradient classes.
-- **Fonts**: Currently using **Merriweather** (headings) and **Quicksand** (UI). Change the Google Fonts link in `<head>` if desired.
-- **Icons/cover**: Replace `assets/book.svg` with your own image. The app uses it for all items unless you extend the data model.
+- **Colours**: change Tailwind utility classes in `index.html` (look for `bg-`, `text-`, gradient `from-` / `to-`).
+- **Fonts**: change the Google Fonts link in `<head>`.
+- **Default cover**: replace `assets/book.svg` (keep the same file name, or update the path in `index.html`).
+- **Per-book images**: add an `"image": "assets/yourfile.jpg"` to a book in `books.json` and the app will use it.
+
+## Data format
+Each book has:
+```json
+{
+  "title": "…",
+  "author": "…",
+  "age": "7-9",
+  "keywords": ["…"],
+  "summary": "…",
+  "link": "https://www.google.com/search?tbm=bks&q=<title+author>"
+}
+```
 
 ## Troubleshooting
-- Searching locally by opening `index.html` with `file://` may block loading `books.json`. Use GitHub Pages or a local server.
-- If no results appear, open the browser console to check for JSON syntax errors.
+- **Case sensitivity**: `books.json` and `assets/book.svg` must be lower-case exactly.
+- **YouTube links**: Not used. The app also **guards** against `youtube.com`/`youtu.be` and will fall back to a Google Books search.
+- **Nothing happens on search**: You might be viewing the file with `file://`. Use GitHub Pages (or a local server).
+
